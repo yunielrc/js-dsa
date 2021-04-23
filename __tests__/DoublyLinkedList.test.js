@@ -162,4 +162,22 @@ describe('DoubleLinkedList', () => {
       expect(list.size).toBe(2)
     })
   })
+
+  describe('peekFirst', () => {
+    it('should throw an error if list is empty', () => {
+      expect(() => sut().peekFirst()).toThrow('Empty list')
+    })
+    it('should peek the first element', () => {
+      expect(sut().add(1).add(2).peekFirst()).toBe(1)
+    })
+  })
+
+  describe('peekLast', () => {
+    it('should throw an error if list is empty', () => {
+      expect(() => sut().peekLast()).toThrow('Empty list')
+    })
+    it('should peek the last element', () => {
+      expect(sut().add(1).add(2).peekLast()).toBe(2)
+    })
+  })
 })

@@ -149,4 +149,14 @@ module.exports = class DoubleLinkedList {
     str += ']'
     return str
   }
+
+  peekFirst() {
+    if (this.isEmpty()) throw new Error('Empty list')
+    return this.#head.data
+  }
+
+  peekLast() {
+    if (this.isEmpty()) throw new Error('Empty list')
+    return this.#tail.data
+  }
 }
