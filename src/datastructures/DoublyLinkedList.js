@@ -15,10 +15,10 @@ class DoubleLinkedListNode {
   next
 
   /**
-   * 
+   *
    * @param {object} data
    * @param {DoubleLinkeListNode} prev
-   * @param {DoubleLinkeListNode} next      
+   * @param {DoubleLinkeListNode} next
    */
   constructor(data, prev, next) {
     this.data = data
@@ -87,6 +87,54 @@ module.exports = class DoubleLinkedList {
     trav.prev = newNode
 
     return this
+  }
+
+  removeFirst() {
+    if (this.isEmpty()) return
+
+    const data = this.#head.data
+
+    if (this.size === 1) {
+      this.clear()
+      return data
+    }
+    this.#head = this.#head.next
+    this.#head.prev = null
+    this.#size--
+    return data
+  }
+
+  removeLast() {
+    if (this.isEmpty()) return
+
+    const data = this.#tail.data
+
+    if (this.size === 1) {
+      this.clear()
+      return data
+    }
+    this.#tail = this.#tail.prev
+    this.#tail.next = null
+    this.#size--
+    return data
+  }
+
+  removeAt(pos) {
+    if (pos < 0 || pos >= this.size) throw new RangeError('Illegal Index')
+
+    if (pos === 0) return this.removeFirst()
+    if (pos === this.size - 1) return this.removeLast()
+
+    let trav = this.#head
+
+    for (let i = 1; i <= pos; i++) {
+      trav = trav.next
+    }
+
+    trav.prev.next = trav.next
+    trav.next.prev = trav.prev
+    this.#size--
+    return trav.data
   }
 
   toString() {
