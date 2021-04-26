@@ -189,4 +189,6 @@ module.exports = class DoubleLinkedList {
     }
     return false
   }
+
+  contains = data => this.indexOf(data) !== -1
 }

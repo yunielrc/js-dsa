@@ -216,4 +216,13 @@ describe('DoubleLinkedList', () => {
       expect(l.remove(100)).toBe(false)
     })
   })
+
+  describe('contains', () => {
+    it('should return true', () => {
+      expect(l.contains(2)).toBe(true)
+    })
+    it('should return false', () => {
+      expect(l.contains(100)).toBe(false)
+    })
+  })
 })
