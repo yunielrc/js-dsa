@@ -119,6 +119,22 @@ module.exports = class DoubleLinkedList {
     return data
   }
 
+  #remove(node) {
+    if (!node) throw new Error('Invalid Parameter')
+
+    switch (node) {
+      case this.#head:
+        return this.removeFirst()
+      case this.#tail:
+        return this.removeLast()
+      default:
+        node.prev.next = node.next
+        node.next.prev = node.prev
+        this.#size--
+        return node.data
+    }
+  }
+
   removeAt(pos) {
     if (pos < 0 || pos >= this.size) throw new RangeError('Illegal Index')
 
@@ -126,15 +142,10 @@ module.exports = class DoubleLinkedList {
     if (pos === this.size - 1) return this.removeLast()
 
     let trav = this.#head
-
     for (let i = 1; i <= pos; i++) {
       trav = trav.next
     }
-
-    trav.prev.next = trav.next
-    trav.next.prev = trav.prev
-    this.#size--
-    return trav.data
+    return this.#remove(trav)
   }
 
   toString() {
@@ -158,5 +169,24 @@ module.exports = class DoubleLinkedList {
   peekLast() {
     if (this.isEmpty()) throw new Error('Empty list')
     return this.#tail.data
+  }
+
+  indexOf(data) {
+    for (let i = 0, trav = this.#head; trav !== null; trav = trav.next, i++) {
+      if (trav.data === data) {
+        return i
+      }
+    }
+    return -1
+  }
+
+  remove(data) {
+    for (let trav = this.#head; trav !== null; trav = trav.next) {
+      if (trav.data === data) {
+        this.#remove(trav)
+        return true
+      }
+    }
+    return false
   }
 }

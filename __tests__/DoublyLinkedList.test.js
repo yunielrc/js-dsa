@@ -6,6 +6,10 @@ const DoubleLinkedList = require('./../src/datastructures/DoublyLinkedList')
 const sut = () => new DoubleLinkedList()
 
 describe('DoubleLinkedList', () => {
+  let l = null
+  beforeEach(() => {
+    l = sut().add(1).add(2).add(3).add(4).add(5)
+  })
   describe('clear', () => {
     it('should clear the list', () => {
       const list = sut()
@@ -14,12 +18,12 @@ describe('DoubleLinkedList', () => {
       expect(list.size).toBe(0)
       expect(list.isEmpty()).toBe(true)
     })
-  });
+  })
   describe('size', () => {
     it('should has a size of 2', () => {
       expect(sut().add(1).add(1).size).toBe(2)
     })
-  });
+  })
   describe('add', () => {
     it('should add the first element', () => {
       expect(sut().add(5).toString()).toBe('[5]')
@@ -178,6 +182,38 @@ describe('DoubleLinkedList', () => {
     })
     it('should peek the last element', () => {
       expect(sut().add(1).add(2).peekLast()).toBe(2)
+    })
+  })
+  describe('indexOf', () => {
+    const l = sut().add(1).add(2).add(3).add(3).add(2)
+    it('should return 0', () => {
+      expect(l.indexOf(1)).toBe(0)
+    })
+    it('should return 1', () => {
+      expect(l.indexOf(2)).toBe(1)
+    })
+    it('should return 2', () => {
+      expect(l.indexOf(3)).toBe(2)
+    })
+    it('should return -1', () => {
+      expect(l.indexOf(5)).toBe(-1)
+    })
+  })
+  describe('remove', () => {
+    it('should remove the first element', () => {
+      expect(l.remove(1)).toBe(true)
+      expect(l.toString()).toBe('[2,3,4,5]')
+    })
+    it('should remove the third element', () => {
+      expect(l.remove(3)).toBe(true)
+      expect(l.toString()).toBe('[1,2,4,5]')
+    })
+    it('should remove the last element', () => {
+      expect(l.remove(5)).toBe(true)
+      expect(l.toString()).toBe('[1,2,3,4]')
+    })
+    it('should return false', () => {
+      expect(l.remove(100)).toBe(false)
     })
   })
 })
